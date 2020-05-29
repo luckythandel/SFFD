@@ -4,25 +4,18 @@ you can try it in windows and see yourself how fucked up this script is for wind
 '''
 import pexpect
 import argparse
-import socket
 import re
 import ntpath
 
 parser = argparse.ArgumentParser(description="only for educational purpose!\n Our program use 1337 port. so, please make sure that you must not have any other service running on this port.")
 parser.add_argument("-P","--protocol",help="choose SSH or FTP", type=str, required=True)
 parser.add_argument("-u", "--username", help="username on the choosen port", required=True)
-parser.add_argument("-p", "--password", help="For password")
+parser.add_argument("-p", "--password", help="For password", required=True)
 parser.add_argument("-i", "--serverip", help="for IP or domain", required=False)
-parser.add_argument("-I", "--myip", help="your IP on which you will recive file")
+parser.add_argument("-I", "--myip", help="your IP on which you will recive file", required=True)
 parser.add_argument("-f","--filename", help="the file path you want to download from SSH/FTP", type=str)
 args = parser.parse_args()
 
-
-soc = socket.socket()
-host = args.myip
-port = 1337
-soc.bind((host,port))
-BUFFER_SIZE = 4096
 
 username = args.username
 Pass = args.password
@@ -72,8 +65,10 @@ def ftp_connector():
             print("Trying to fetch files...")
             child.sendline(f"get {wants_to_download_file}")
             print(f"File {wants_to_download_file} has been downloaded!")
+        
         elif j == 1:
             print("given info. was incorrect!")
+            exit(0)
         else:
             print("Something went wrong!\n")
 
