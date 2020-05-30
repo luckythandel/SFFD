@@ -6,11 +6,12 @@ Feel free to edit it.
 
 
 ### Run this command to install pexpect module: 
-'''
+```
 pip3 install pexpect
-'''
+```
 
 ### TO RUN THIS SCRIPT:
-'''
+```
 $ python3 SFFD.py -P [FTP OR SSH] -u USERNMAE -p PASSWORD -i SERVER IP -I YOUR IP -f [FILEPATH OR FILENAME]
-'''
+```
+## ENJOY!!
