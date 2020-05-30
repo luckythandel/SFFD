@@ -52,14 +52,21 @@ def ssh_connector():
     child = pexpect.spawn(f"ssh {username}@{server_ip}")
     child.expect(first_expect)
     child.sendline(Pass)
-    i = child.expect([f"{username}", "Permission denied, please try again."])
+    i = child.expect([username, "Permission denied, please try again."])
     if i == 0:
         try:
             child.sendline(f"nc {args.myip} 1337 < {wants_to_download_file} ")
         except:
-            print("nc command didn't work. trying netcat...\n")
-            child.sendline(f"netcat {args.myip} 1337 < {wants_to_download_file}")  
-
+                print("Netcat didn't worked. trying scp...\n")
+                child2 = pexpect.spawn(f"scp {username}@{server_ip}:{wants_to_download_file} {os.system('pwd')}")
+                i2 = child2.expect([username, "Permission denied, please try again."])
+                if i2 == 0:
+                    child2.sendline(Pass)
+                    child2.expect(username)
+                    child2.close()
+                elif i2 == 1:
+                    print("Something went wrong!")
+                    exit(0)
     elif i == 1:
         print("Given info. was not correct!")
         child.kill(0)
