@@ -17,7 +17,28 @@ parser.add_argument("-I", "--myip", help="your IP on which you will recive file"
 parser.add_argument("-f","--filename", help="the file path you want to download from SSH/FTP", type=str)
 args = parser.parse_args()
 
-
+def args_checker():
+    if len(args.protocol) == 0:
+        print("Please use all argunments")
+        exit(0)
+    elif len(args.myip) == 0:
+        print("Please use all argunments")
+        exit(0)
+    elif  len(args.username) == 0:
+        print("Please use all argunments")
+        exit(0)
+    elif len(args.password) == 0:
+        print("Please use all argunments")
+        exit(0)
+    elif len(args.filename) == 0:
+        print("Please use all argunments")
+        exit(0)
+    elif len(args.server_ip) == 0:
+        print("Please use all argunments")
+        exit(0)
+    else:
+        print("\nsome thing went wrong!")    
+        exit(0)
 username = args.username
 Pass = args.password
 server_ip = args.serverip
@@ -47,7 +68,7 @@ def ssh_connector():
 def ftp_connector():
     child = pexpect.spawn("ftp")
     child.expect("ftp>")
-    child.sendline(f"open {server_ip}") 
+    child.sendline(f"open {server_ip}") # for testing HTB fatty FTP: 10.10.10.174
     i = child.expect(["220", "refused"])
     if i == 0:
         print("[+] server is ONLINE")
