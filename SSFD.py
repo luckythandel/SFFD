@@ -47,7 +47,7 @@ def ssh_connector():
 def ftp_connector():
     child = pexpect.spawn("ftp")
     child.expect("ftp>")
-    child.sendline(f"open {server_ip}") # for testing HTB fatty FTP: 10.10.10.174
+    child.sendline(f"open {server_ip}") 
     i = child.expect(["220", "refused"])
     if i == 0:
         print("[+] server is ONLINE")
