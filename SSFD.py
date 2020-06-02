@@ -1,3 +1,4 @@
+#!/bin/python3
 '''
 it is a script that suppose to run in a Linux System. otherwise, it won't run properly! 
 you can try it in windows and see yourself how fucked up this script is for windows.
